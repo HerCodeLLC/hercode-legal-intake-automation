@@ -236,3 +236,15 @@ The same architecture can be adapted to professional service workflows involving
 **HerCode LLC** builds workflow automation, systems integrations, and custom technology solutions that reduce manual work and improve business operations.
 
 This repository is a portfolio demonstration and uses fictional data throughout.
+
+## License & Commercial Use
+
+Copyright © 2026 HerCode LLC. All Rights Reserved.
+
+This repository is publicly viewable for portfolio, demonstration, evaluation, and educational review purposes. It is **not open-source software**.
+
+Commercial use, copying, modification, redistribution, incorporation into commercial products or services, or use in paid client work is not permitted without prior written authorization from HerCode LLC.
+
+Commercial licensing, implementation, customization, and integration may be available through HerCode LLC.
+
+See the [LICENSE](LICENSE) file for complete terms.
