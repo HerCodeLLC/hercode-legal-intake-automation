@@ -113,6 +113,31 @@ Prospective Client
 ```
 
 This separation is intentional: AI handles bounded information processing work while Python enforces deterministic workflow logic and humans retain authority over consequential decisions.
+## Application Screenshots
+
+### Prospective Client Intake
+
+The client-facing intake form collects structured matter information and clearly states that submitting the form does not create an attorney-client relationship.
+
+![Prospective Client Intake Form](screenshots/01-intake-form.jpeg)
+
+### Staff Intake Dashboard
+
+The internal dashboard gives staff a centralized view of prospective matters, intake status, conflict-check status, and decision status.
+
+![Staff Intake Dashboard](screenshots/02-staff-dashboard.jpeg)
+
+### AI-Assisted Intake Review
+
+Submitted information is displayed alongside a structured AI-generated Attorney Intake Summary to prepare the matter for human review.
+
+![AI-Assisted Intake Review](screenshots/03-ai-intake-review.jpeg)
+
+### Governance & Human Review
+
+The workflow explicitly separates AI assistance from consequential legal decisions. Conflict checks and matter acceptance remain human responsibilities.
+
+![Governance and Human Review](screenshots/04-governance-human-review.jpeg)
 
 ## Project Structure
 
