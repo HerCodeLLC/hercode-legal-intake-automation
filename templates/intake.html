@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prospective Client Intake | Harbor Point Legal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #1f2933;
+        }
+
+        .topbar {
+            background: #172033;
+            color: white;
+            padding: 22px 40px;
+        }
+
+        .topbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .topbar p {
+            margin: 6px 0 0;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 36px 40px 60px;
+        }
+
+        .page-header {
+            margin-bottom: 24px;
+        }
+
+        .page-header h2 {
+            margin: 0 0 8px;
+            font-size: 30px;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: #667085;
+            line-height: 1.6;
+        }
+
+        .notice {
+            background: #eef4ff;
+            border-left: 4px solid #172033;
+            border-radius: 6px;
+            padding: 15px 18px;
+            margin-top: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e1e5ea;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 18px 22px;
+            border-bottom: 1px solid #e1e5ea;
+            background: #f8fafc;
+        }
+
+        .card-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .card-header p {
+            margin: 5px 0 0;
+            color: #667085;
+            font-size: 13px;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 24px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 7px;
+            color: #344054;
+        }
+
+        .required {
+            color: #b42318;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: 1px solid #cfd5dc;
+            border-radius: 7px;
+            padding: 11px 12px;
+            font: inherit;
+            font-size: 14px;
+            color: #1f2933;
+            background: white;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #667085;
+            box-shadow: 0 0 0 3px rgba(23, 32, 51, 0.08);
+        }
+
+        textarea {
+            min-height: 125px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .date-selects {
+            display: grid;
+            grid-template-columns: 1.4fr 0.8fr 1fr;
+            gap: 8px;
+        }
+
+        .acknowledgement {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 24px;
+            padding: 16px;
+            background: #f8fafc;
+            border: 1px solid #e1e5ea;
+            border-radius: 7px;
+        }
+
+        .acknowledgement input {
+            width: auto;
+            margin-top: 3px;
+        }
+
+        .acknowledgement label {
+            margin: 0;
+            font-weight: 400;
+            line-height: 1.5;
+            font-size: 13px;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        button {
+            border: 0;
+            background: #172033;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #25324a;
+        }
+
+        .privacy-note {
+            margin: 18px 0 0;
+            color: #667085;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 700px) {
+            .topbar {
+                padding: 20px 18px;
+            }
+
+            .container {
+                padding: 26px 18px 40px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full-width {
+                grid-column: auto;
+            }
+
+            .actions button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <h1>Harbor Point Legal</h1>
+        <p>Prospective Client Intake</p>
+    </header>
+
+    <main class="container">
+
+        <div class="page-header">
+            <h2>Tell Us About Your Legal Matter</h2>
+
+            <p>
+                Complete the form below to provide our team with initial
+                information about your matter.
+            </p>
+
+            <div class="notice">
+                <strong>Please note:</strong>
+                Submitting this form does not create an attorney-client
+                relationship and does not mean that Harbor Point Legal
+                has accepted your matter.
+            </div>
+        </div>
+
+        <form action="/intake" method="POST" onsubmit="prepareDate()">
+
+            <section class="card">
+
+                <div class="card-header">
+                    <h3>Prospective Client Information</h3>
+                    <p>Fields marked with * are required.</p>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="form-grid">
+
+                        <div class="field">
+                            <label for="full_name">
+                                Full Name <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="full_name"
+                                name="full_name"
+                                required
+                            >
+                        </div>
+
+                        <div class="field">
+                            <label for="email">
+                                Email <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                required
+                            >
+                        </div>
+
+                        <div class="field">
+                            <label for="phone">Phone Number</label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                            >
+                        </div>
+
+                        <div class="field">
+                            <label for="matter_type">
+                                What type of legal matter is this?
+                                <span class="required">*</span>
+                            </label>
+
+                            <select
+                                id="matter_type"
+                                name="matter_type"
+                                required
+                            >
+                                <option value="">Select a matter type</option>
+                                <option value="Business">Business</option>
+                                <option value="Employment">Employment</option>
+                                <option value="Family">Family</option>
+                                <option value="Personal Injury">Personal Injury</option>
+                                <option value="Real Estate">Real Estate</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="opposing_party">
+                                Other person or company involved
+                            </label>
+
+                            <input
+                                type="text"
+                                id="opposing_party"
+                                name="opposing_party"
+                            >
+                        </div>
+
+                        <div class="field">
+                            <label>Date of incident or dispute</label>
+
+                            <div class="date-selects">
+
+                                <select id="incident_month">
+                                    <option value="">Month</option>
+                                    <option value="01">January</option>
+                                    <option value="02">February</option>
+                                    <option value="03">March</option>
+                                    <option value="04">April</option>
+                                    <option value="05">May</option>
+                                    <option value="06">June</option>
+                                    <option value="07">July</option>
+                                    <option value="08">August</option>
+                                    <option value="09">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+
+                                <select id="incident_day">
+                                    <option value="">Day</option>
+                                </select>
+
+                                <select id="incident_year">
+                                    <option value="">Year</option>
+                                </select>
+
+                            </div>
+
+                            <input
+                                type="hidden"
+                                id="incident_date"
+                                name="incident_date"
+                            >
+                        </div>
+
+                        <div class="field full-width">
+                            <label for="description">
+                                Briefly describe what happened
+                                <span class="required">*</span>
+                            </label>
+
+                            <textarea
+                                id="description"
+                                name="description"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="field full-width">
+                            <label for="desired_outcome">
+                                What would you like help with?
+                            </label>
+
+                            <textarea
+                                id="desired_outcome"
+                                name="desired_outcome"
+                            ></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="acknowledgement">
+
+                        <input
+                            type="checkbox"
+                            id="acknowledgement"
+                            name="acknowledgement"
+                            value="on"
+                            required
+                        >
+
+                        <label for="acknowledgement">
+                            I understand that submitting this form does not
+                            create an attorney-client relationship or mean
+                            that my matter has been accepted.
+                        </label>
+
+                    </div>
+
+                    <div class="actions">
+                        <button type="submit">
+                            Submit for Review
+                        </button>
+                    </div>
+
+                    <p class="privacy-note">
+                        Information submitted through this demonstration is
+                        used only to illustrate the intake workflow.
+                    </p>
+
+                </div>
+            </section>
+
+        </form>
+
+    </main>
+
+    <script>
+        const daySelect = document.getElementById("incident_day");
+        const yearSelect = document.getElementById("incident_year");
+        const monthSelect = document.getElementById("incident_month");
+
+        for (let day = 1; day <= 31; day++) {
+            const option = document.createElement("option");
+            option.value = String(day).padStart(2, "0");
+            option.textContent = day;
+            daySelect.appendChild(option);
+        }
+
+        const currentYear = new Date().getFullYear();
+
+        for (let year = currentYear; year >= currentYear - 100; year--) {
+            const option = document.createElement("option");
+            option.value = year;
+            option.textContent = year;
+            yearSelect.appendChild(option);
+        }
+
+        function prepareDate() {
+            const month = monthSelect.value;
+            const day = daySelect.value;
+            const year = yearSelect.value;
+
+            const hiddenDate = document.getElementById("incident_date");
+
+            if (month && day && year) {
+                hiddenDate.value = `${year}-${month}-${day}`;
+            } else {
+                hiddenDate.value = "";
+            }
+        }
+    </script>
+
+</body>
+</html>

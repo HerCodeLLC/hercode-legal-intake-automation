@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Intake Dashboard | Harbor Point Legal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #1f2933;
+        }
+
+        .topbar {
+            background: #172033;
+            color: white;
+            padding: 22px 40px;
+        }
+
+        .topbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .topbar p {
+            margin: 6px 0 0;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .container {
+            width: 100%;
+            margin: 0;
+            padding: 32px 40px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .page-header h2 {
+            margin: 0 0 6px;
+            font-size: 28px;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: #667085;
+        }
+
+        .new-intake {
+            display: inline-block;
+            background: #172033;
+            color: white;
+            text-decoration: none;
+            padding: 11px 18px;
+            border-radius: 7px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .card {
+            width: 100%;
+            background: white;
+            border: 1px solid #e1e5ea;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f8fafc;
+            color: #475467;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            text-align: left;
+            padding: 14px 16px;
+            border-bottom: 1px solid #e1e5ea;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #edf0f3;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        tbody tr:hover {
+            background: #fafbfc;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .client-link {
+            color: #1d4ed8;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .client-link:hover {
+            text-decoration: underline;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 9px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .human-review {
+            background: #ecfdf3;
+            color: #027a48;
+        }
+
+        .not-performed {
+            background: #fff7ed;
+            color: #b54708;
+        }
+
+        .no-decision {
+            background: #f2f4f7;
+            color: #475467;
+        }
+
+        .submitted-date {
+            white-space: nowrap;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #667085;
+        }
+
+        .footer-note {
+            margin-top: 18px;
+            color: #667085;
+            font-size: 13px;
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                padding: 24px 18px;
+            }
+
+            .topbar {
+                padding: 20px 18px;
+            }
+
+            .page-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <h1>Harbor Point Legal</h1>
+        <p>Internal Legal Operations</p>
+    </header>
+
+    <main class="container">
+
+        <div class="page-header">
+            <div>
+                <h2>Client Intake Dashboard</h2>
+                <p>Review and manage prospective-client intake submissions.</p>
+            </div>
+
+            <a class="new-intake" href="/">+ New Intake</a>
+        </div>
+
+        <div class="card">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Prospective Client</th>
+                            <th>Matter Type</th>
+                            <th>Opposing Party</th>
+                            <th>Intake Status</th>
+                            <th>Conflict Check</th>
+                            <th>Decision Status</th>
+                            <th>Submitted</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for intake in intakes %}
+                        <tr>
+                            <td>#{{ intake["id"] }}</td>
+
+                            <td>
+                                <a
+                                    class="client-link"
+                                    href="/intake/{{ intake['id'] }}"
+                                >
+                                    {{ intake["full_name"] }}
+                                </a>
+                            </td>
+
+                            <td>{{ intake["matter_type"] }}</td>
+
+                            <td>
+                                {{ intake["opposing_party"] or "Not provided" }}
+                            </td>
+
+                            <td>
+                                <span class="status human-review">
+                                    {{ intake["intake_status"] }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="status not-performed">
+                                    {{ intake["conflict_check_status"] }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="status no-decision">
+                                    {{ intake["decision_status"] }}
+                                </span>
+                            </td>
+
+                            <td class="submitted-date">
+                                {{ intake["created_at"][5:7] }}/{{ intake["created_at"][8:10] }}/{{ intake["created_at"][0:4] }}
+                            </td>
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+                            <td class="empty-state" colspan="8">
+                                No prospective-client intakes have been submitted.
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <p class="footer-note">
+            AI-assisted intake summaries support staff review.
+            Case acceptance and final conflict determinations remain human decisions.
+        </p>
+
+    </main>
+
+</body>
+</html>
